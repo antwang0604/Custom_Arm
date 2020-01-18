@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: kortex_description
+    relative_path: robots/gen3_custom_gripper.xacro
+    xacro_args: --inorder arm:=gen3 gripper:=custom_gripper
+  SRDF:
+    relative_path: config/gen3_custom_gripper.srdf
+  CONFIG:
+    author_name: Anthony Wang
+    author_email: aw3645@nyu.edu
+    generated_timestamp: 1579379740
