@@ -1,20 +1,72 @@
 <?xml version="1.0"?>
 
-<robot name="mobile_kortex_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:macro name="load_robot" params="arm gripper sim">
     
-    <!-- Arguments -->
-    <xacro:arg name="arm" default="gen3" />
-    <xacro:arg name="gripper" default="custom_gripper" />
-    <xacro:arg name="sim" default="false" />
+        <!-- Arguments -->
+        <xacro:property name="arm" value="$(arg arm)" />
+        <xacro:property name="gripper" default="$(arg gripper)" />
+        <xacro:property name="sim" default="$(arg sim)" />
+        <xacro:property name="dof" default="7" />
+        <xacro:property name="vision" default="true" />
+        <xacro:property name="prefix" default="" />
 
 
-    <xacro:include filename="$(find custom_kortex_description)/robots/kortex_robot.xacro" />
-    <xacro:include filename="$(find jackal_description)/urdf/jackal.urdf.xacro" />
+        
+        <!-- Files to include -->
+        <xacro:include filename="$(find kortex_description)/arms/$(arg arm)/7dof/urdf/$(arg arm)_macro.xacro" />
+        <xacro:unless value="${not gripper}">
+            <xacro:include filename="$(find custom_kortex_description)/grippers/$(arg gripper)/urdf/$(arg gripper)_macro.xacro" />
+        </xacro:unless>
+        
+        <xacro:if value="$(arg sim)">
+            <!-- Arm transmission elements-->
+            <xacro:include filename="$(find kortex_description)/arms/$(arg arm)/7dof/urdf/$(arg arm)_transmission_macro.xacro" />
+            <!-- Gripper transmission elements if there is a gripper-->
+            <xacro:unless value="${not gripper}">
+                <xacro:include filename="$(find custom_kortex_description)/grippers/$(arg gripper)/urdf/$(arg gripper)_transmission_macro.xacro" />
+            </xacro:unless>
+        </xacro:if>
 
-    <xacro:load_robot arm="$(arg arm)" gripper="$(arg gripper)" sim="$(arg sim)"/>
-    
+        <!-- Run the macros -->
 
+        <!-- Load the arm -->
+        <xacro:load_arm parent="${arm_mount}" dof="${dof}" vision="${vision}" prefix="${prefix}">
+            <origin xyz="0 0 0" rpy="0 0 0"/> 
+        </xacro:load_arm> 
 
+        
+        <xacro:macro name="jackal_arm_jt">
+            <joint name="jackal_arm_joint" type="fixed">
+                <parent link="${arm_mount}"/>
+                <child link="base_link"/>
+                <origin rpy="0 0 0" xyz="0.0 0.0 0"/>
+            </joint>
+        </xacro:macro>
 
+        <xacro:jackal_arm_jt/>
 
+        <!-- Load the gripper -->
+        <xacro:unless value="${not gripper}">
+            <xacro:load_gripper parent="${last_arm_link}"/> <!-- last_arm_link is defined in "$(find kortex_description)/arms/$(arg arm)/urdf/$(arg arm)_macro.xacro" -->
+        </xacro:unless>
+
+        <!-- Load the Gazebo transmissions and gazebo_ros_control plugin -->
+        <xacro:if value="$(arg sim)">
+
+            <xacro:load_gazebo_arm_transmissions prefix="${prefix}"/>
+
+            <xacro:unless value="${not gripper}">
+                <xacro:load_gazebo_gripper_transmissions/>
+            </xacro:unless>
+
+            <gazebo>
+                <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+                    <legacyModeNS>true</legacyModeNS>
+                </plugin>
+            </gazebo>
+
+        </xacro:if>
+    </xacro:macro>
 </robot>

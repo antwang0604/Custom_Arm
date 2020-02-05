@@ -15,6 +15,8 @@
     <arg name="arm" default="gen3"/>
     <arg name="gripper" default="custom_gripper" />
     <arg name="robot_name" default="my_$(arg arm)"/>
+    <arg name="dof" default="7"/>
+    <arg name="vision" default="true"/>
 
     <!-- Use trajectory controllers and MoveIt! -->
     <arg name="use_trajectory_controller" default="true"/>
@@ -70,7 +72,7 @@
             unless="$(eval not arg('gripper'))"/>
 
         <!-- Load controller configuration file from kortex_control package -->
-        <rosparam file="$(find kortex_control)/arms/$(arg arm)/config/joint_position_controllers.yaml" command="load"/>
+        <rosparam file="$(find kortex_control)/arms/$(arg arm)/$(arg dof)dof/config/joint_position_controllers.yaml" command="load"/>
 
         <rosparam file="$(find custom_kortex_control)/grippers/$(arg gripper)/config/gripper_action_controller_parameters.yaml" command="load"
             unless="$(eval not arg('gripper'))"/>

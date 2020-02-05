@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<robot name="arm_gripper_jackal" xmlns:xacro="http://ros.org/wiki/xacro">
+        
+        <!-- Arguments -->
+    <xacro:arg name="arm" default="gen3" />
+    <xacro:arg name="gripper" default="custom_gripper" />
+    <xacro:arg name="sim" default="true" />
+    <xacro:arg name="dof" default="7" />
+    <xacro:arg name="vision" default="true" />
+    <xacro:arg name="prefix" default="" />
+    
+    
+
+    <xacro:include filename="$(find custom_kortex_description)/robots/jackal.urdf.xacro" />
+    <xacro:include filename="$(find custom_kortex_description)/robots/mobile_kortex_robot.xacro" />
+    
+    <xacro:load_jackal />
+    <xacro:load_robot arm="$(arg arm)" gripper="$(arg gripper)" sim="$(arg sim)"/>
+
+</robot>
