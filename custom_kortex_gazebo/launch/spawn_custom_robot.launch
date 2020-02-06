@@ -71,11 +71,9 @@
                 -J joint_7 1.57 "
             unless="$(eval not arg('gripper'))"/>
 
-        <!-- Load controller configuration file from kortex_control package -->
+        <!-- Load controller configuration file from kortex_control package and only for the arm because gripper does not need a controller-->
         <rosparam file="$(find kortex_control)/arms/$(arg arm)/$(arg dof)dof/config/joint_position_controllers.yaml" command="load"/>
 
-        <rosparam file="$(find custom_kortex_control)/grippers/$(arg gripper)/config/gripper_action_controller_parameters.yaml" command="load"
-            unless="$(eval not arg('gripper'))"/>
 
         <!-- Start the controllers -->
 
