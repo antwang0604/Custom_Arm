@@ -1,0 +1,7 @@
+<launch>
+  <arg name="pose" default="vertical"/>
+
+  <group ns="my_gen3">
+    <node pkg="move_kinova_arm" name="gen3_$(arg pose)" type="$(arg pose)"/>
+  </group>
+</launch>
