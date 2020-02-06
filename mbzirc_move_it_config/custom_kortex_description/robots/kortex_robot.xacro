@@ -8,7 +8,7 @@
         <!-- Files to include -->
         <xacro:include filename="$(find kortex_description)/arms/$(arg arm)/${dof}dof/urdf/$(arg arm)_macro.xacro" />
         <xacro:unless value="${not gripper}">
-            <xacro:include filename="$(find custom_kortex_description)/grippers/$(arg gripper)/urdf/$(arg gripper)_macro.xacro" />
+            <xacro:include filename="$(find mbzirc_move_it_config)/custom_kortex_description/grippers/$(arg gripper)/urdf/$(arg gripper)_macro.xacro" />
         </xacro:unless>
         
         <xacro:if value="$(arg sim)">
@@ -16,7 +16,7 @@
             <xacro:include filename="$(find kortex_description)/arms/${arm}/${dof}dof/urdf/${arm}_transmission_macro.xacro" />
             <!-- Gripper transmission elements if there is a gripper-->
             <xacro:unless value="${not gripper}">
-                <xacro:include filename="$(find custom_kortex_description)/grippers/$(arg gripper)/urdf/$(arg gripper)_transmission_macro.xacro" />
+                <xacro:include filename="$(find mbzirc_move_it_config)/custom_kortex_description/grippers/$(arg gripper)/urdf/$(arg gripper)_transmission_macro.xacro" />
             </xacro:unless>
         </xacro:if>
 
