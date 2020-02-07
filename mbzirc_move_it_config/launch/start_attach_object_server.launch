@@ -1,0 +1,6 @@
+<launch>
+
+  <group ns="my_gen3">
+    <node pkg="mbzirc_move_it_config" name="attach_object_server" type="attached_service_server"/>
+  </group>
+</launch>

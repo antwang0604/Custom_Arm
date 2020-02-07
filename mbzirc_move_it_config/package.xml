@@ -32,6 +32,7 @@
   <build_depend>tf2_ros</build_depend>
   <build_depend>tf2_eigen</build_depend>
   <build_depend>tf2_geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
 
 
   <run_depend>pluginlib</run_depend>
@@ -66,6 +67,8 @@
   <run_depend>robot_state_publisher</run_depend>
   <run_depend>tf2_ros</run_depend>
   <run_depend>xacro</run_depend>
+  <run_depend>message_runtime</run_depend>
+
   <!-- This package is referenced in the warehouse launch files, but does not build out of the box at the moment. Commented the dependency until this works. -->
   <!-- <run_depend>warehouse_ros_mongo</run_depend> -->
 
