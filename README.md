@@ -4,7 +4,8 @@
 To launch the robot in gazebo and moveit    
 `roslaunch mbzirc_move_it_config spawn_custom_robot.launch`   
     
-    
+While the Launch file is running, serveral different files to run in parallel:      
+        
 ### Moving the Robot into different poses   
 `roslaunch mbzirc_move_it_config move_robot.launch`      
 **Arguments**   
