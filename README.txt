@@ -1,3 +1,11 @@
-Launch File is located inside custom_kortex_gazebo package named "spawn_custom_robot.launch"
+##mbzirc_move_it config Package
 
-default argument for gripper is already set to custom gripper.
+##Launch
+To launch the robot in gazebo and moveit
+`roslaunch mbzirc_move_it_config spawn_custom_robot.launch`
+
+### Moving the Robot into different poses
+`roslaunch mbzirc_move_it_config move_robot.launch` 
+**Arguments**
+* pose: packaging, vertical, add_obstacle
+
